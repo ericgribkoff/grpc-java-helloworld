@@ -30,59 +30,19 @@ dependencies {
     implementation "io.grpc:grpc-protobuf:${grpcVersion}"
     implementation "io.grpc:grpc-stub:${grpcVersion}"
     compileOnly "javax.annotation:javax.annotation-api:1.2"
-
-    // examples/advanced need this for JsonFormat
-    implementation "com.google.protobuf:protobuf-java-util:${protobufVersion}"
-
     runtimeOnly "io.grpc:grpc-netty-shaded:${grpcVersion}"
-
-    testImplementation "io.grpc:grpc-testing:${grpcVersion}"
-    testImplementation "junit:junit:4.12"
-    testImplementation "org.mockito:mockito-core:2.25.1"
 }
 
-protobuf {
-    protoc { artifact = "com.google.protobuf:protoc:${protocVersion}" }
-    plugins {
-        grpc { artifact = "io.grpc:protoc-gen-grpc-java:${grpcVersion}" }
-    }
-    generateProtoTasks {
-        all()*.plugins { grpc {} }
-    }
-}
-
-// Inform IDEs like IntelliJ IDEA, Eclipse or NetBeans about the generated code.
-sourceSets {
-    main {
-        java {
-            srcDirs 'build/generated/source/proto/main/grpc'
-            srcDirs 'build/generated/source/proto/main/java'
-        }
-    }
-}
+//configureProtoCompilation()
 
 startScripts.enabled = false
 
-task routeGuideServer(type: CreateStartScripts) {
-    mainClassName = 'io.grpc.examples.routeguide.RouteGuideServer'
-    applicationName = 'route-guide-server'
-    outputDir = new File(project.buildDir, 'tmp')
-    classpath = startScripts.classpath
-}
-
-task routeGuideClient(type: CreateStartScripts) {
-    mainClassName = 'io.grpc.examples.routeguide.RouteGuideClient'
-    applicationName = 'route-guide-client'
-    outputDir = new File(project.buildDir, 'tmp')
-    classpath = startScripts.classpath
-}
-
-task helloWorldServer(type: CreateStartScripts) {
-    mainClassName = 'io.grpc.examples.helloworld.HelloWorldServer'
-    applicationName = 'hello-world-server'
-    outputDir = new File(project.buildDir, 'tmp')
-    classpath = startScripts.classpath
-}
+//task helloWorldServer(type: CreateStartScripts) {
+//    mainClassName = 'io.grpc.examples.helloworld.HelloWorldServer'
+//    applicationName = 'hello-world-server'
+//    outputDir = new File(project.buildDir, 'tmp')
+//    classpath = startScripts.classpath
+//}
 
 task helloWorldClient(type: CreateStartScripts) {
     mainClassName = 'io.grpc.examples.helloworld.HelloWorldClient'
@@ -91,34 +51,8 @@ task helloWorldClient(type: CreateStartScripts) {
     classpath = startScripts.classpath
 }
 
-task hedgingHelloWorldServer(type: CreateStartScripts) {
-    mainClassName = 'io.grpc.examples.hedging.HedgingHelloWorldServer'
-    applicationName = 'hedging-hello-world-server'
-    outputDir = new File(project.buildDir, 'tmp')
-    classpath = startScripts.classpath
-}
-
-task hedgingHelloWorldClient(type: CreateStartScripts) {
-    mainClassName = 'io.grpc.examples.hedging.HedgingHelloWorldClient'
-    applicationName = 'hedging-hello-world-client'
-    outputDir = new File(project.buildDir, 'tmp')
-    classpath = startScripts.classpath
-}
-
-task compressingHelloWorldClient(type: CreateStartScripts) {
-    mainClassName = 'io.grpc.examples.experimental.CompressingHelloWorldClient'
-    applicationName = 'compressing-hello-world-client'
-    outputDir = new File(project.buildDir, 'tmp')
-    classpath = startScripts.classpath
-}
-
 applicationDistribution.into('bin') {
-    from(routeGuideServer)
-    from(routeGuideClient)
-    from(helloWorldServer)
+    //from(helloWorldServer)
     from(helloWorldClient)
-    from(hedgingHelloWorldClient)
-    from(hedgingHelloWorldServer)
-    from(compressingHelloWorldClient)
     fileMode = 0755
 }
