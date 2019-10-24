@@ -50,8 +50,9 @@ public class HelloWorldClient {
   /** Construct client connecting to HelloWorld server at {@code host:port}. */
   public HelloWorldClient(String target, SslContext sslContext) {
     this(NettyChannelBuilder.forTarget(target)
+        .usePlaintext()
                         //.overrideAuthority("foo.test.google.fr")  /* Only for using provided test certs. */
-                                        .sslContext(sslContext)
+//                                        .sslContext(sslContext)
         .build());
   }
 
