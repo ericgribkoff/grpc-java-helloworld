@@ -50,7 +50,7 @@ public class HelloWorldClient {
   /** Construct client connecting to HelloWorld server at {@code host:port}. */
   public HelloWorldClient(String target, SslContext sslContext) {
     this(NettyChannelBuilder.forTarget(target)
-                        .overrideAuthority("foo.test.google.fr")  /* Only for using provided test certs. */
+                        //.overrideAuthority("foo.test.google.fr")  /* Only for using provided test certs. */
                                         .sslContext(sslContext)
         .build());
   }
@@ -104,7 +104,10 @@ public class HelloWorldClient {
       sslCertFile = args[2];
     }
     HelloWorldClient client = new HelloWorldClient(args[0], buildSslContext(sslCertFile, null, null));
-    int secRemaining = Integer.parseInt(args[1]);
+    int secRemaining = 1;
+    if (args.length > 1) {
+      secRemaining = Integer.parseInt(args[1]);
+    }
     try {
       while (secRemaining-- > 0) {
         String user = "world";
