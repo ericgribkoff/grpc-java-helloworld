@@ -61,7 +61,7 @@ public class HelloWorldClient {
     managedChannel = originChannel;
     interceptor = new HeaderClientInterceptor();
     channel = ClientInterceptors.intercept(originChannel, interceptor);
-    blockingStub = GreeterGrpc.newBlockingStub(channel);
+    blockingStub = GreeterGrpc.newBlockingStub(channel).withWaitForReady();
   }
 
     private static SslContext buildSslContext(String trustCertCollectionFilePath,
