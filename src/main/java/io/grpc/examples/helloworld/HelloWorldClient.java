@@ -104,15 +104,15 @@ public class HelloWorldClient {
    * greeting.
    */
   public static void main(String[] args) throws Exception {
- String loggingConfig =
-    "handlers=java.util.logging.ConsoleHandler\n"
-        + "io.grpc.level=FINE\n"
-        + "java.util.logging.ConsoleHandler.level=FINE\n"
-        + "java.util.logging.ConsoleHandler.formatter=java.util.logging.SimpleFormatter";
- java.util.logging.LogManager.getLogManager()
-    .readConfiguration(
-        new java.io.ByteArrayInputStream(
-            loggingConfig.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
+    // String loggingConfig =
+    //    "handlers=java.util.logging.ConsoleHandler\n"
+    //        + "io.grpc.level=FINE\n"
+    //        + "java.util.logging.ConsoleHandler.level=FINE\n"
+    //        + "java.util.logging.ConsoleHandler.formatter=java.util.logging.SimpleFormatter";
+    // java.util.logging.LogManager.getLogManager()
+    //    .readConfiguration(
+    //        new java.io.ByteArrayInputStream(
+    //            loggingConfig.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
 
     String sslCertFile = null;
     if (args.length == 3) {
